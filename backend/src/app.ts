@@ -4,6 +4,7 @@ import { env } from "./config/env.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { productRouter } from "./routes/productRoutes.js";
 
+
 export const app = express();
 
 const allowedOrigins = process.env.CORS_ORIGINS?.split(",") ?? [];

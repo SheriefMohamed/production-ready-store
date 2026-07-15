@@ -21,6 +21,8 @@ jobs:
 
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/production_ready_store?schema=public
+      CORS_ORIGIN: http://localhost:3000
+      NODE_ENV: test
 
     defaults:
       run:

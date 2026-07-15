@@ -1,13 +1,12 @@
-import cors from "cors";
-import express from "express";
-import { env } from "./config/env.js";
-import { errorHandler } from "./middleware/errorHandler.js";
-import { productRouter } from "./routes/productRoutes.js";
-
+import cors from 'cors';
+import express from 'express';
+import { env } from './config/env.js';
+import { errorHandler } from './middleware/errorHandler.js';
+import { productRouter } from './routes/productRoutes.js';
 
 export const app = express();
 
-const allowedOrigins = process.env.CORS_ORIGINS?.split(",") ?? [];
+const allowedOrigins = process.env.CORS_ORIGINS?.split(',') ?? [];
 
 app.use(
   cors({
@@ -29,10 +28,15 @@ app.use(
 
 app.use(express.json());
 
-app.get("/health", (_req, res) => {
-  res.json({ status: "ok" });
+app.get('/health', (_req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV ?? 'development',
+  });
 });
 
-app.use("/api/products", productRouter);
+app.use('/api/products', productRouter);
 
 app.use(errorHandler);
